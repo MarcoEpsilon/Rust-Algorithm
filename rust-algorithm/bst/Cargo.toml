@@ -1,0 +1,7 @@
+[package]
+name = "bst"
+version = "0.1.0"
+authors = ["epsilon"]
+edition = "2018"
+
+[dependencies]
