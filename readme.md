@@ -4,10 +4,14 @@
 - 使用这些请确保有Rust和一些基础知识的储备(比如手头有一本算法书可以翻阅)
 ## 实现
   ### 二叉搜索树 ([rust-algorithm/bst/src/bst.rs](rust-algorithm/bst/src/bst.rs))
-    - insert 插入操作
-    - maximum minimum 最大值,最小值
-    - predecessor successor 前驱,后继
-    - search delete 查询,删除
+  - insert 插入操作
+  - maximum minimum 最大值,最小值
+  - predecessor successor 前驱,后继
+  - search delete 查询,删除
+  ### 红黑树 ([rust-algorithm/rbtree/src/rbtree.rs](rust-algorithm/rbtree/src/rbtree.rs))
+  - 创建 (       [rust-algorithm/rbtree/src/rbtree/create.rs](rust-algorithm/rbtree/src/rbtree/create.rs))
+  - 查找 ([rust-algorithm/rbtree/src/rbtree/find.rs](rust-algorithm/rbtree/src/rbtree/find.rs))
+  - 插入 ([rust-algorithm/rbtree/src/rbtree/update.rs](rust-algorithm/rbtree/src/rbtree/update.rs))
 ## 文档
 - 暂时没有文档来说明这些算法实现,但是你可以查阅算法书籍和仔细阅读源码实现
 ## 正确性
