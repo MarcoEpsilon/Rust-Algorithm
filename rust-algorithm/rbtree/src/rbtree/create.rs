@@ -25,7 +25,7 @@ impl<K,V> RBNode<K,V>
         K: Debug + Clone + PartialOrd,
         V: Debug + Clone,
 {
-    fn new(key:K,value:V,color:NodeColor) -> RBNode<K,V> {
+    pub (super) fn new(key:K,value:V,color:NodeColor) -> RBNode<K,V> {
         return RBNode {
             left:None,
             right:None,
@@ -42,7 +42,7 @@ impl<K,V> RBTree<K,V>
         K: Debug + Clone + PartialOrd,
         V: Debug + Clone,
 {
-    fn new(key:K,value:V) -> RBTree<K,V> {
+    pub fn new(key:K,value:V) -> RBTree<K,V> {
         return RBTree {
             root:Some(Rc::new(RefCell::new(RBNode::new(key,value,NodeColor::Black)))),
         }
