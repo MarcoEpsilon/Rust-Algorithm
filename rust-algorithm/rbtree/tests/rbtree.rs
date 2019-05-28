@@ -1,6 +1,8 @@
 use rbtree::rbtree::RBTree;
 use rbtree::rbtree::debug;
-fn main() {
+#[cfg(test)]
+#[test]
+fn check_insert() {
     let mut root = RBTree::new(6,"hello");
     root.insert(3,"rust");
     root.insert(8,"lala");

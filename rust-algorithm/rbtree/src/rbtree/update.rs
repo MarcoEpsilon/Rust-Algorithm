@@ -84,7 +84,7 @@ impl<K,V> RBNode<K,V>
             panic!("can't rotate_to_right!");
         }
     }
-    fn is_red(&self) -> bool {
+    pub (super) fn is_red(&self) -> bool {
         if let NodeColor::Red = self.color {
             return true;
         }
@@ -130,22 +130,26 @@ impl<K,V> RBNode<K,V>
     }
     fn get_uncle_unchecked(this:&ChildNodePointer<K,V>) -> ChildNodePointer<K,V> {
         let this_node = this.borrow();
-        let parent_node = this_node.parent.upgrade().unwrap();
-        let parent_node = parent_node.borrow();
-        if Self::is_left_node_unchecked(&this) {
-            return parent_node.right.clone().unwrap();
+        let parent = this_node.parent.upgrade().unwrap();
+        let parent_node = parent.borrow();
+        let grand = parent_node.parent.upgrade().unwrap();
+        let grand_node = grand.borrow();
+        if Self::is_left_node_unchecked(&parent) {
+            return grand_node.right.clone().unwrap();
         } else {
-            return parent_node.left.clone().unwrap();
+            return grand_node.left.clone().unwrap();
         }
     }
     fn has_red_uncle(this:&ChildNodePointer<K,V>) -> bool {
         let this_node = this.borrow();
         if this_node.has_parent() {
-            let parent_node = this_node.parent.upgrade().unwrap();
-            let parent_node = parent_node.borrow();
+            let parent = this_node.parent.upgrade().unwrap();
+            let parent_node = parent.borrow();
             if parent_node.has_parent() {
-                if Self::is_left_node_unchecked(&this) {
-                    match parent_node.right {
+                let grand = parent_node.parent.upgrade().unwrap();
+                let grand_node = grand.borrow();
+                if Self::is_left_node_unchecked(&parent) {
+                    match grand_node.right {
                         Some(ref right) => {
                             return right.borrow().is_red();
                         },
@@ -154,7 +158,7 @@ impl<K,V> RBNode<K,V>
                         }
                     }
                 } else {
-                    match parent_node.left {
+                    match grand_node.left {
                         Some(ref left) => {
                             return left.borrow().is_red();
                         },
@@ -206,7 +210,7 @@ impl<K,V> RBNode<K,V>
             let parent = this_node.parent.upgrade();
             if let None = parent {
                 unsafe {
-                    let mut node = Some(Some(Rc::clone(&this)));
+                    let node = Some(Some(Rc::clone(&this)));
                     ptr::write(root_hook,node);
                 }
             }
